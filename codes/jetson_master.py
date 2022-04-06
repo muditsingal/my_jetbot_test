@@ -23,7 +23,7 @@ try:
         serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
-        make_command('S',160,-160)
+        make_command('S',160,127-(160-127))
         serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
@@ -32,7 +32,7 @@ try:
         serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
-        make_command('S',160,-160)
+        make_command('S',160,127-(160-127))
         serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
@@ -41,7 +41,7 @@ try:
         serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
-        make_command('S',160,-160)
+        make_command('S',160,127-(160-127))
         serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
@@ -50,7 +50,7 @@ try:
         serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
-        make_command('S',160,-160)
+        make_command('S',160,127-(160-127))
         serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
