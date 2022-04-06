@@ -29,20 +29,20 @@ try:
 
 
         make_command('S',180,180)
-        serial_port.write(data_to_arduino.encode()))
+        serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
         make_command('S',160,-160)
-        serial_port.write(data_to_arduino.encode()))
+        serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
 
         make_command('S',180,180)
-        serial_port.write(data_to_arduino.encode()))
+        serial_port.write(data_to_arduino.encode())
         time.sleep(1.5)
 
         make_command('S',160,-160)
-        serial_port.write(data_to_arduino.encode()))
+        serial_port.write(data_to_arduino.encode())
         time.sleep(1)
 
 
