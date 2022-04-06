@@ -8,7 +8,7 @@ print("NVIDIA Jetson Nano Developer Kit")
 data_to_arduino = "S"
 
 def make_command(cmd, left_wheel, right_wheel):
-    data_to_arduino = cmd + chr(left_wheel) + chr(right_wheel) + "\n"
+    data_to_arduino = cmd + cmd + chr(left_wheel) + chr(right_wheel) + "\n"
 
 serial_port = serial.Serial(port="/dev/ttyUSB0", baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
 # Wait a second to let the port initialize
