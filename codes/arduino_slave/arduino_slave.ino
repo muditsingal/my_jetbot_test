@@ -1,10 +1,10 @@
 int motor1pin1 = 2;
-int motor1pin2 = 3;
-int motor1pwm = 9;
+int motor1pin2 = 4;
+int motor1pwm = 3;
 
-int motor2pin1 = 4;
-int motor2pin2 = 5;
-int motor2pwm = 10;
+int motor2pin1 = 6;
+int motor2pin2 = 7;
+int motor2pwm = 5;
 
 void setup() {
   Serial.begin(115200);
@@ -18,7 +18,7 @@ void setup() {
 }
 
 String rx_data;
-String cmd;
+char cmd;
 int left_wh_speed;
 int right_wh_speed;
 
@@ -28,6 +28,9 @@ void loop() {
     cmd = Serial.read();
     left_wh_speed = Serial.read();
     right_wh_speed = Serial.read();
+    Serial.println(cmd);
+    Serial.println(left_wh_speed);
+    Serial.println(right_wh_speed);
     left_wh_speed = left_wh_speed -127;
     right_wh_speed = right_wh_speed -127;
 //    if(left_wh_speed == 121)
@@ -44,7 +47,7 @@ void loop() {
   {
     digitalWrite(motor1pin1, LOW);
     digitalWrite(motor1pin2, HIGH);
-    analogWrite(motor1pwm,left_wh_speed*2);
+    analogWrite(motor1pwm,(left_wh_speed+127)*2);
   }
   else
   {
@@ -58,7 +61,7 @@ void loop() {
   {
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
-    analogWrite(motor2pwm,right_wh_speed*2);
+    analogWrite(motor2pwm,(right_wh_speed+127)*2);
   }
   else
   {
