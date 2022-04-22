@@ -1,6 +1,13 @@
 import cv2
 import numpy as np
 import time
+import serial
+
+ser = serial.Serial(port="/dev/ttyUSB0", baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
+
+def make_command(cmd,left_speed,right_speed):
+    cmd_to_arduino = cmd + chr(int(left_speed)) + chr(int(right_speed))
+    return cmd_to_arduino
 
 def nothing(x):
 	pass
@@ -25,11 +32,16 @@ cv2.createTrackbar('Hue2Low','Trackbars',4,179,nothing)
 cv2.createTrackbar('Hue2High','Trackbars',17,179,nothing)
 
 cam = cv2.VideoCapture(0)
+move = False
+cmd = 'S'
+left_speed = 0
+right_speed = 0
+
 
 while True:
 	ret, frame = cam.read()
 	
-	start = time.time()
+	#start = time.time()    #to measure time taken to process one frame
 
 	#frame = cv2.resize(frame,(320,240))
 	frame = cv2.resize(frame,(960,720))
@@ -91,19 +103,47 @@ while True:
 		area=cv2.contourArea(cnt)
 		(x,y,w,h)=cv2.boundingRect(cnt)
 		if area>=50:
+            x_cord = x + w/2
+            move = True
 			#cv2.drawContours(frame,[cnt],0,(255,0,0),3)
 			cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),3)
+        
+        else:
+            x_cord = 720/2;
+            move = False
 
-	cv2.imshow('piCam',frame)
-	cv2.moveWindow('piCam',0,0)
+
+    if(move):
+        if(x_cord < 320):       #let there be 40px deadband each side of center of screen
+            left_speed = (x_cord/360)*62 + 64
+            right_speed = 126
+            
+        elif(x_cord > 400):
+            left_speed = 126
+            right_speed = ((720 - x_cord)/360)*62 + 64
+        
+        else:
+            left_speed = 126
+            right_speed = 126
+    
+    else:
+        left_speed = 0
+        right_speed = 0
+        
+    command = make_command(cmd, left_speed, right_speed)
+    ser.write(command.encode())
+            
+            
+	#cv2.imshow('piCam',frame)
+	#cv2.moveWindow('piCam',0,0)
 
 	#fps = cam.get(cv2.CAP_PROP_FPS)
 	#print(format(fps))
 
 	#time.sleep(0.1)
-	end = time.time()
+	#end = time.time()
 
-	print(end-start)
+	#print(end-start)
 
 	if cv2.waitKey(1) == ord('q'):
 		break
