@@ -18,10 +18,22 @@ void setup() {
 void loop() {
     digitalWrite(motor1pin1, HIGH);
     digitalWrite(motor1pin2, LOW);
-    analogWrite(motor1pwm,60);
+    analogWrite(motor1pwm,200);
+  
+    digitalWrite(motor2pin1, HIGH);
+    digitalWrite(motor2pin2, LOW);
+    analogWrite(motor2pwm,200);
+
+    delay(2000);
+
+    digitalWrite(motor1pin1, LOW);
+    digitalWrite(motor1pin2, HIGH);
+    analogWrite(motor1pwm,200);
   
     digitalWrite(motor2pin1, LOW);
     digitalWrite(motor2pin2, HIGH);
-    analogWrite(motor2pwm,60);
+    analogWrite(motor2pwm,200);
+
+    delay(2000);
   
 }
