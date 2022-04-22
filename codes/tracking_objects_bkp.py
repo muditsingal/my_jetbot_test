@@ -12,6 +12,25 @@ def make_command(cmd,left_speed,right_speed):
 def nothing(x):
 	pass
 
+cv2.namedWindow('Trackbars')
+cv2.moveWindow('Trackbars',1100,0)
+
+cv2.createTrackbar('SatLow','Trackbars',168,255,nothing)
+cv2.createTrackbar('SatHigh','Trackbars',229,255,nothing)
+
+#cv2.createTrackbar('HueLow','Trackbars',0,179,nothing)
+cv2.createTrackbar('HueLow','Trackbars',4,179,nothing)
+cv2.createTrackbar('HueHigh','Trackbars',17,179,nothing)
+
+cv2.createTrackbar('ValLow','Trackbars',189,255,nothing)
+cv2.createTrackbar('ValHigh','Trackbars',255,255,nothing)
+
+#cv2.createTrackbar('Hue2Low','Trackbars',93,179,nothing)
+#cv2.createTrackbar('Hue2High','Trackbars',121,179,nothing)
+
+cv2.createTrackbar('Hue2Low','Trackbars',4,179,nothing)
+cv2.createTrackbar('Hue2High','Trackbars',17,179,nothing)
+
 cam = cv2.VideoCapture(0)
 move = False
 cmd = 'S'
@@ -35,17 +54,17 @@ while True:
 	#cv2.imshow('HSV',hsv)
 	#cv2.moveWindow('HSV',0,260)
 
-	hue_l = 4
-	hue_h = 17
+	hue_l = cv2.getTrackbarPos('HueLow','Trackbars')
+	hue_h = cv2.getTrackbarPos('HueHigh','Trackbars')
 
-	sat_l = 168
-	sat_h = 229
+	sat_l = cv2.getTrackbarPos('SatLow','Trackbars')
+	sat_h = cv2.getTrackbarPos('SatHigh','Trackbars')
 
-	val_l = 189
-	val_h = 255
+	val_l = cv2.getTrackbarPos('ValLow','Trackbars')
+	val_h = cv2.getTrackbarPos('ValHigh','Trackbars')
 
-	hue2_l = 11
-	hue2_h = 14
+	hue2_l = cv2.getTrackbarPos('Hue2Low','Trackbars')
+	hue2_h = cv2.getTrackbarPos('Hue2High','Trackbars')
 
 	lower_bnd = np.array([hue_l,sat_l,val_l])
 	upper_bnd = np.array([hue_h,sat_h,val_h])
