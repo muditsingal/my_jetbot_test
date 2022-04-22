@@ -40,7 +40,7 @@ right_speed = 0
 
 while True:
 	ret, frame = cam.read()
-	
+
 	#start = time.time()    #to measure time taken to process one frame
 
 	#frame = cv2.resize(frame,(320,240))
@@ -82,7 +82,7 @@ while True:
 	#cv2.moveWindow('FG',330,0)
 
 	FG2 = cv2.bitwise_and(frame,frame,mask = FG2Mask)
-	
+
 	FGmaskComp = cv2.add(FGMask,FG2Mask)
 
 	BGMask = cv2.bitwise_not(FGMask)
@@ -95,7 +95,7 @@ while True:
 	final = cv2.add(final1,FG2)
 	#cv2.imshow('Final', final)
 	#cv2.moveWindow('Final',660,0)
-	
+
 	#_,contours,_=cv2.findContours(FGmaskComp,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 	contours,_ =cv2.findContours(FGmaskComp,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 	contours=sorted(contours,key=lambda x:cv2.contourArea(x),reverse=True)
@@ -103,37 +103,37 @@ while True:
 		area=cv2.contourArea(cnt)
 		(x,y,w,h)=cv2.boundingRect(cnt)
 		if area>=50:
-            x_cord = x + w/2
-            move = True
+			x_cord = x + w/2
+			move = True
 			#cv2.drawContours(frame,[cnt],0,(255,0,0),3)
 			cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),3)
-        
-        else:
-            x_cord = 720/2;
-            move = False
+
+		else:
+			x_cord = 720/2
+			move = False
 
 
-    if(move):
-        if(x_cord < 320):       #let there be 40px deadband each side of center of screen
-            left_speed = (x_cord/360)*62 + 64
-            right_speed = 126
-            
-        elif(x_cord > 400):
-            left_speed = 126
-            right_speed = ((720 - x_cord)/360)*62 + 64
-        
-        else:
-            left_speed = 126
-            right_speed = 126
-    
-    else:
-        left_speed = 0
-        right_speed = 0
-        
-    command = make_command(cmd, left_speed, right_speed)
-    ser.write(command.encode())
-            
-            
+	if(move):
+		if(x_cord < 320):       #let there be 40px deadband each side of center of screen
+			left_speed = (x_cord/360)*62 + 64
+			right_speed = 126
+
+		elif(x_cord > 400):
+			left_speed = 126
+			right_speed = ((720 - x_cord)/360)*62 + 64
+
+		else:
+			left_speed = 126
+			right_speed = 126
+
+	else:
+		left_speed = 0
+		right_speed = 0
+
+	command = make_command(cmd, left_speed, right_speed)
+	ser.write(command.encode())
+
+
 	#cv2.imshow('piCam',frame)
 	#cv2.moveWindow('piCam',0,0)
 
@@ -150,4 +150,3 @@ while True:
 
 cam.release()
 cv2.destroyAllWindows()
-
