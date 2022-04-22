@@ -44,8 +44,8 @@ while True:
 	val_l = 189
 	val_h = 255
 
-	hue2_l = 11
-	hue2_h = 14
+	hue2_l = 10
+	hue2_h = 15
 
 	lower_bnd = np.array([hue_l,sat_l,val_l])
 	upper_bnd = np.array([hue_h,sat_h,val_h])
@@ -83,11 +83,12 @@ while True:
 	for cnt in contours:
 		area=cv2.contourArea(cnt)
 		(x,y,w,h)=cv2.boundingRect(cnt)
-		if area>=50:
+		if area >= 300:
 			x_cord = x + w/2
 			move = True
 			#cv2.drawContours(frame,[cnt],0,(255,0,0),3)
 			cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),3)
+			print("Object detected at " + str(x_cord))
 
 		else:
 			x_cord = 720/2
@@ -125,6 +126,7 @@ while True:
 	#end = time.time()
 
 	#print(end-start)
+	#time.sleep(0.25)
 
 	if cv2.waitKey(1) == ord('q'):
 		break
