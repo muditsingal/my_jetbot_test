@@ -110,8 +110,8 @@ try:
 				right_speed = 126
 
 		else:
-			left_speed = 0
-			right_speed = 0
+			left_speed = 95
+			right_speed = 95
 
 		command = make_command(cmd, left_speed, right_speed)
 		ser.write(command.encode())
@@ -130,6 +130,7 @@ try:
 		#time.sleep(0.25)
 
 		if cv2.waitKey(1) == ord('q'):
+			ser.write(zero_str.encode())
 			break
 
 except KeyboardInterrupt:
