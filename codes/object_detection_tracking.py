@@ -34,7 +34,7 @@ try:
 				x_cord = detection.Center[0]
 				print("Object detected at " + str(x_cord))
 				move = True
-		
+
 			else:
 				x_cord = 320
 				move = False
@@ -58,10 +58,11 @@ try:
 			right_speed = 95
 
 		command = make_command(cmd, left_speed, right_speed)
+		print(command)
 		ser.write(command.encode())
 
 
-		#time.sleep(0.1)
+		time.sleep(0.05)
 		#end = time.time()
 
 		#print(end-start)
