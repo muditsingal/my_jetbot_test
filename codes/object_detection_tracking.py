@@ -35,37 +35,36 @@ try:
 		# display.SetStatus("Object Detection | Network {:.0f} FPS".format(net.GetNetworkFPS()))
 
 
-'''
-		(x,y,w,h)=cv2.boundingRect(cnt)
-			if area >= 300:
-				x_cord = x + w/2
-				move = True
-				print("Object detected at " + str(x_cord))
+		# (x,y,w,h)=cv2.boundingRect(cnt)
+		# 	if area >= 300:
+		# 		x_cord = x + w/2
+		# 		move = True
+		# 		print("Object detected at " + str(x_cord))
 
-			else:
-				x_cord = 720/2
-				move = False
+		# 	else:
+		# 		x_cord = 720/2
+		# 		move = False
 
 
-		if(move):
-			if(x_cord < 320):       #let there be 40px deadband each side of center of screen
-				left_speed = (x_cord/360)*62 + 64
-				right_speed = 126
+		# if(move):
+		# 	if(x_cord < 320):       #let there be 40px deadband each side of center of screen
+		# 		left_speed = (x_cord/360)*62 + 64
+		# 		right_speed = 126
 
-			elif(x_cord > 400):
-				left_speed = 126
-				right_speed = ((720 - x_cord)/360)*62 + 64
+		# 	elif(x_cord > 400):
+		# 		left_speed = 126
+		# 		right_speed = ((720 - x_cord)/360)*62 + 64
 
-			else:
-				left_speed = 126
-				right_speed = 126
+		# 	else:
+		# 		left_speed = 126
+		# 		right_speed = 126
 
-		else:
-			left_speed = 95
-			right_speed = 95
+		# else:
+		# 	left_speed = 95
+		# 	right_speed = 95
 
-		command = make_command(cmd, left_speed, right_speed)
-		ser.write(command.encode())
+		# command = make_command(cmd, left_speed, right_speed)
+		# ser.write(command.encode())
 
 
 		#time.sleep(0.1)
@@ -73,7 +72,6 @@ try:
 
 		#print(end-start)
 		#time.sleep(0.25)
-'''
 
 except KeyboardInterrupt:
 	ser.write(zero_str.encode())
