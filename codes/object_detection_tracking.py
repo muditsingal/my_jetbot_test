@@ -25,7 +25,8 @@ right_speed = 0
 zero_str = 'S' + chr(0) + chr(0)
 
 try:
-	while display.IsStreaming():
+	#while display.IsStreaming():
+	while True:
 		img = camera.Capture()
 		detections = net.Detect(img)
 		print(detections)
