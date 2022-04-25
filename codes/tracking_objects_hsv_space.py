@@ -6,8 +6,8 @@ import serial
 ser = serial.Serial(port="/dev/ttyUSB0", baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
 
 def make_command(cmd,left_speed,right_speed):
-    cmd_to_arduino = cmd + chr(int(left_speed)) + chr(int(right_speed))
-    return cmd_to_arduino
+	cmd_to_arduino = cmd + chr(int(left_speed)) + chr(int(right_speed))
+	return cmd_to_arduino
 
 def nothing(x):
 	pass
