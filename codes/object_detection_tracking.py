@@ -6,7 +6,7 @@ import jetson.utils
 
 ser = serial.Serial(port="/dev/ttyUSB0", baudrate=115200, bytesize=serial.EIGHTBITS, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE)
 net = jetson.inference.detectNet("ssd-mobilenet-v2", threshold=0.4)
-camera = jetson.utils.videoSource("/dev/video0")
+camera = jetson.utils.videoSource("/dev/video0",['-input-width=1280','-input-height=720'])
 # display = jetson.utils.videoOutput("display://0")
 
 
@@ -29,9 +29,11 @@ try:
 	while True:
 		img = camera.Capture()
 		detections = net.Detect(img)
-		print(detections)
-		print(type(detections))
-		print('\n\n')
+		for detection in detections:
+			if(detection.ClassID == 1):
+				x_cord = detection.Center[0]
+				print(x_cord)
+		#print('\n\n')
 		# display.Render(img)
 		# display.SetStatus("Object Detection | Network {:.0f} FPS".format(net.GetNetworkFPS()))
 
